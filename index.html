@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terry's Deluxe Casino</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <div class="win-overlay" id="win-overlay"></div>
+
+        <!-- 통계 및 히스토리 사이드 패널 -->
+        <div id="stats-panel" class="stats-panel">
+            <div class="stats-header">
+                <h3>📊 TERRY'S STATS</h3>
+                <button id="btn-close-stats" class="btn-close">&times;</button>
+            </div>
+            <div class="stats-content">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">TOTAL GAMES</span>
+                        <span id="stat-total-games" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">WIN RATE</span>
+                        <span id="stat-win-rate" class="stat-value">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">NET PROFIT</span>
+                        <span id="stat-net-profit" class="stat-value">₩0</span>
+                    </div>
+                </div>
+                <div class="history-list">
+                    <h4>RECENT HANDS</h4>
+                    <div id="history-container"></div>
+                </div>
+                <button id="btn-reset-stats" class="btn-reset-stats">RESET STATS</button>
+            </div>
+        </div>
+
+        <!-- 상단 헤더: 지갑 정보 -->
+        <header class="casino-header">
+            <div class="logo">
+                <span class="logo-icon">👑</span>
+                <h1>TERRY'S <span class="gold-text">DELUXE</span></h1>
+            </div>
+            <div class="wallet-status">
+                <button id="btn-show-guide" class="btn-reset help-btn" title="게임 가이드">HELP</button>
+                <button id="btn-show-stats" class="btn-reset" title="통계 보기">STATS</button>
+                <button id="btn-reset-wallet" class="btn-reset" title="초기 자본 10만원으로 리셋">RESET</button>
+                <div class="currency-item chips">
+                    <span class="label">WALLET BALANCE</span>
+                    <span class="value">₩<span id="balance-chips">100,000</span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 메인 게임 영역 -->
+        <main class="game-container">
+            <section id="blackjack-table" class="game-table">
+                <div class="table-felt">
+                    <!-- 딜러 카드 영역 -->
+                    <div class="dealer-area">
+                        <div id="dealer-score" class="score-badge">?</div>
+                        <div id="dealer-cards" class="card-slot"></div>
+                    </div>
+
+                    <!-- 배팅 구역 -->
+                    <div class="betting-area" id="betting-area">
+                        <div class="chip-stack" id="main-chip-stack"></div>
+                    </div>
+
+                    <!-- 상태 알림 영역 -->
+                    <div class="announcement-area">
+                        <h2 id="game-status">MIN BET: ₩10,000</h2>
+                    </div>
+
+                    <!-- 플레이어 카드 영역 -->
+                    <div class="player-area">
+                        <div id="player-cards" class="card-slot"></div>
+                        <div id="player-score" class="score-badge">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 컨트롤 패널 -->
+            <div class="controls-panel">
+                <div class="betting-controls">
+                    <button class="btn-bet" data-amount="10000">1만</button>
+                    <button class="btn-bet" data-amount="50000">5만</button>
+                    <button class="btn-bet" data-amount="100000">10만</button>
+                    <button class="btn-bet" data-amount="500000">50만</button>
+                </div>
+                <div class="action-buttons">
+                    <button id="btn-deal" class="btn-primary">DEAL</button>
+                    <button id="btn-hit" class="btn-secondary" disabled>HIT</button>
+                    <button id="btn-stand" class="btn-secondary" disabled>STAND</button>
+                    <button id="btn-double" class="btn-secondary" disabled>DOUBLE</button>
+                    <button id="btn-split" class="btn-secondary" disabled>SPLIT</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="casino-footer">
+            <p>&copy; 2026 Terry's Casino. <span class="warning">Play Responsibly.</span></p>
+        </footer>
+
+        <!-- 도움말 모달 -->
+        <div id="guide-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🃏 HOW TO PLAY</h2>
+                    <button id="btn-close-guide" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="guide-item">
+                        <span class="guide-term">DEAL</span>
+                        <p>배팅 금액을 결정한 후 게임을 시작합니다.</p>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-term">HIT</span>
+                        <p>카드를 한 장 더 받습니다. 합계가 21을 넘으면 패배합니다.</p>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-term">STAND</span>
+                        <p>현재 합계에 만족하고 순서를 마칩니다.</p>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-term">DOUBLE DOWN</span>
+                        <p>배팅액을 2배로 올리고 딱 한 장만 더 받습니다.</p>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-term">SPLIT</span>
+                        <p>같은 숫자의 두 카드를 각각의 손으로 나누어 플레이합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="blackjack.js"></script>
+</body>
+
+</html>
