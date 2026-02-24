@@ -37,7 +37,8 @@ h2,
 #app {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
+    /* Dynamic Viewport Height for Mobile */
     perspective: 1000px;
 }
 
@@ -153,7 +154,9 @@ h2,
     gap: 1.5rem;
     background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Allow scrolling if content is taller than screen */
 }
 
 /* 3D Table */
@@ -455,13 +458,15 @@ h2,
 .stats-panel {
     position: fixed;
     top: 0;
-    right: -400px;
+    right: 0;
     width: 350px;
-    height: 100vh;
+    height: 100dvh;
     background: rgba(18, 18, 18, 0.95);
     border-left: 2px solid var(--gold-dark);
     z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.4s;
+    transform: translateX(100%);
+    /* More robust than fixed pixel offset */
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.4s;
     display: flex;
     flex-direction: column;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
@@ -469,7 +474,7 @@ h2,
 }
 
 .stats-panel.active {
-    right: 0;
+    transform: translateX(0);
     visibility: visible;
 }
 
