@@ -23,8 +23,9 @@ body {
     background-color: var(--carbon-black);
     color: var(--text-light);
     font-family: 'Inter', sans-serif;
-    overflow: hidden;
-    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
 }
 
 h1,
@@ -172,6 +173,7 @@ h2,
     z-index: 5;
     transform: rotateX(15deg);
     transform-style: preserve-3d;
+    margin: auto;
 }
 
 .table-felt {
@@ -459,14 +461,16 @@ h2,
     background: rgba(18, 18, 18, 0.95);
     border-left: 2px solid var(--gold-dark);
     z-index: 1000;
-    transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.4s;
     display: flex;
     flex-direction: column;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+    visibility: hidden;
 }
 
 .stats-panel.active {
     right: 0;
+    visibility: visible;
 }
 
 .stats-header {
