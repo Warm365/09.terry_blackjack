@@ -1,0 +1,17 @@
+{
+    "name": "linas-casino",
+    "version": "1.0.0",
+    "description": "Lina's Deluxe Casino Mobile App",
+    "main": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Terry",
+    "license": "ISC",
+    "dependencies": {
+        "@capacitor/android": "^7.0.0",
+        "@capacitor/cli": "^7.0.0",
+        "@capacitor/core": "^7.0.0"
+    }
+}
